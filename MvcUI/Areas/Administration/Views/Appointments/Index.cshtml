@@ -1,0 +1,72 @@
+﻿@model IEnumerable<BusinessLayer.Models.Appointments.AppointmentViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Administration/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Bütün Randevular (@Model.Count())</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserEmail)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.SalonName)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Confirmed)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @item.DateTime.ToString("f")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserEmail)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.SalonName)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceName)
+            </td>
+            <td>
+                @if (item.Confirmed == true)
+                {
+                    <span class="badge badge-success">Onaylanmış</span>
+                }
+                else if (item.Confirmed == false)
+                {
+                    <span class="badge badge-danger">İptal edilmiş</span>
+                }
+                else
+                {
+                    <span class="badge badge-secondary">Onay bekliyor.</span>
+                }
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>

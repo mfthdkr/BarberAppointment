@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BusinessLayer.Models.Salons.SalonsListViewModel
+@{
+    ViewData["Title"] = "Salons";
+}
+
+<p>
+    Bütün kuaförler: (@Model.Salons.Count())
+</p>
+<span>
+    <a class="btn btn-info" asp-area="Administration" asp-controller="Salons" asp-action="AddSalon">Yeni kuaför ekle.</a>
+</span>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>İsim</th>
+            <th>Görsel</th>
+            <th>Kategori</th>
+            <th>Şehir</th>
+            <th>Adres</th>
+            <th>Puan</th>
+            <th>Randevular</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var salon in Model.Salons)
+        {
+            <tr>
+                <th>@salon.Name</th>
+                <td>
+                    <img class="align-self-center" src="@salon.ImageUrl" style="width:180px;height:120px;">
+                </td>
+                <td>@salon.CategoryName</td>
+                <td>@salon.CityName</td>
+                <td>@salon.Address</td>
+                <td>@salon.Rating / 5</td>
+                <td>@salon.AppointmentsCount</td>
+                <td>
+
+                    <form method="post">
+                        <button type="submit" class="btn btn-danger"
+                            asp-area="Administration" asp-controller="Salons" asp-action="DeleteSalon" asp-route-id="@salon.Id">
+                            Sil
+                        </button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

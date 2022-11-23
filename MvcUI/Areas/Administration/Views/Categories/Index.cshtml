@@ -1,0 +1,57 @@
+﻿@model BusinessLayer.Models.Categories.CategoriesListViewModel
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<p>
+    Bütün kategoriler : (@Model.Categories.Count())
+</p>
+<span>
+    <a class="btn btn-info" asp-area="Administration" asp-controller="Categories" asp-action="AddCategory">Kategori ekle.</a>
+</span>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Kategori</th>
+            <th>Resim</th>
+            <th>Açıklama</th>
+            <th>Hizmetler</th>
+            <th>Kuaförler</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model.Categories)
+        {
+            <tr>
+                <th>@category.Name</th>
+                <td>
+                    <img class="align-self-center" src="@category.ImageUrl" style="width:180px;height:120px;">
+                </td>
+                <td>@category.Description</td>
+                <td>@category.ServicesCount</td>
+                <td>@category.SalonsCount</td>
+                <td>
+                    @if (category.Id == 1 || category.Id == 2)
+                    {
+                        <div class="text-muted" style="font-size:smaller">
+                            bu kategori silenemez.
+                        </div>
+                    }
+                    else
+                    {
+                        <form method="post">
+                            <button type="submit" class="btn btn-danger"
+                            asp-area="Administration" asp-controller="Categories" asp-action="DeleteCategory" asp-route-id="@category.Id">
+                                Sil
+                            </button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

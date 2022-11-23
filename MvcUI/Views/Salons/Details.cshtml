@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BusinessLayer.Models.Salons.SalonWithServicesViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RatersCount)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(model => model.Name)
+            </td>
+            <td>
+                <img class="align-self-center" src="@Model.ImageUrl" style="width:180px;height:120px;">
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CityName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Rating)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.RatersCount)
+            </td>
+            
+        </tr>
+
+    </tbody>
+</table>
+<hr/>
+<p>Bu kuaförde randevu alabileceğiniz hizmetler:</p>
+<table class="table">
+    <thead>
+    <tr>
+            
+        <th>
+            <p>Hizmet adı</p>
+        </th>
+        <th>
+            <p>Açıklama</p>
+
+        </th>
+        <th>
+            
+        </th>
+        
+            
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var service in Model.Services.Where(x => x.Available == true))
+    {
+        <tr>
+            <td >@service.ServiceName</td>
+            <td ><p>@service.ServiceDescription</p></td>
+            <td>
+                <a asp-area="" asp-controller="Appointments" asp-action="MakeAnAppointment" 
+                   asp-route-salonId="@service.SalonId" asp-route-serviceId="@service.ServiceId">
+                    Randevu al.
+                </a>
+            </td>
+        </tr>
+    }
+
+    </tbody>
+</table>
+
+

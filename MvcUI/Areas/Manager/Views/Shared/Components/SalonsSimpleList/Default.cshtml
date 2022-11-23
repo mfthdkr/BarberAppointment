@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BusinessLayer.Models.Salons.SalonsSimpleListViewModel
+@{
+    ViewData["Title"] = "Default";
+}
+
+@foreach (var salon in Model.Salons)
+{
+    <li class="nav-item">
+        <a asp-area="Manager" asp-controller="Salons" asp-action="Details" asp-route-id="@salon.Id"
+           class="a-sidebar">@salon.Name</a>
+    </li>
+    
+}

@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BusinessLayer.Models.Salons.SalonWithServicesViewModel
+@{
+    ViewData["Title"] = "Salon Manager: " + Model.Name;
+}
+<p >Kuaföre ait bilgiler:</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Görsel</th>
+            <th>Salon Adı</th>
+            <th>Kategori</th>
+            <th>Şehir</th>
+            <th>Adres</th>
+            <th>Puan</th>
+            <th>Oy Sayısı</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>  <img class="align-self-center" src="@Model.ImageUrl" style="width:180px;height:120px;"></td>
+            <td>@Model.Name</td>
+            <td>@Model.CategoryName</td>
+            <td>@Model.CityName</td>
+            <td>@Model.Address</td>
+            <td>@Model.Rating</td>
+            <td>@Model.RatersCount</td>
+        </tr>
+    </tbody>
+</table>
+<hr />
+<hr />
+
+<p>Kuaförde verilen hizmetler:</p>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Hizmet</th>
+            <th>Uygunluk</th>
+            <th>Değiştir</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model.Services)
+        {
+            <tr>
+                <th>@service.ServiceName</th>
+                <td>
+                    @if (service.Available == true)
+                    {
+                        <span style="color: green">Hizmet verilmektedir.</span>
+                    }
+                    else
+                    {
+                        <span style="color: red">Hizmet verilmemektedir.</span>
+                    }
+                </td>
+                <td>
+                    <form method="post">
+                        <button type="submit" class="btn btn-success "
+                            asp-area="Manager" asp-controller="Salons" asp-action="ChangeServiceAvailableStatus"
+                            asp-route-salonId="@Model.Id" asp-route-serviceId="@service.ServiceId">
+                            Değiştir
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr/>
+<hr/>
+
+
+
+<div>
+    @await Component.InvokeAsync("AllAppointmentsBySalon", Model.Id)
+</div>
+
+

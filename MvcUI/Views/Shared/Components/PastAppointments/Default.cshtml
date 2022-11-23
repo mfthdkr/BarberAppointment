@@ -1,0 +1,83 @@
+﻿@model IEnumerable<BusinessLayer.Models.Appointments.AppointmentViewModel>
+
+<div>
+   @if (@Model.Any())
+{
+    <p>Eski randevular : (@Model.Count())</p>
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.SalonName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalonCityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalonAddress)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceName)
+            </th>
+            <th>
+                Puan ver
+            </th>
+            
+            <th>
+                Tekrar randevu
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+           
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.SalonName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalonCityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalonAddress)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceName)
+            </td>
+            
+            <td>
+                @if (item.IsSalonRatedByTheUser == true)
+                {
+                    <p>Puan vermişsiniz.</p>
+                }
+                else
+                {
+                    <a 
+                       asp-area="" asp-controller="Appointments" asp-action="RatePastAppointment" asp-route-id="@item.Id">
+                        Puanla.
+                    </a>
+                }
+            </td>
+            <td>
+                <a asp-area="" asp-controller="Appointments" asp-action="MakeAnAppointment" asp-route-salonId="@item.SalonId" asp-route-serviceId="@item.ServiceId">
+                    Randevu al
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
+</div>

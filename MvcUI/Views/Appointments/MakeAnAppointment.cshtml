@@ -1,0 +1,39 @@
+﻿@model BusinessLayer.Models.Appointments.AppointmentInputModel
+
+@{
+    ViewData["Title"] = "MakeAnAppointment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p> Randevu alma sayfası</p>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="MakeAnAppointment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SalonId" class="control-label"></label>
+                <input hidden="" asp-for="SalonId" class="form-control" />
+                <span asp-validation-for="SalonId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServiceId" class="control-label"></label>
+                <input hidden="" asp-for="ServiceId" class="form-control" />
+                <span asp-validation-for="ServiceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateTime" class="control-label"></label>
+                <input type="datetime-local" asp-for="DateTime" class="form-control" />
+                <span asp-validation-for="DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

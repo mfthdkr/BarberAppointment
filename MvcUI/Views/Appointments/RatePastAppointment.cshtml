@@ -1,0 +1,82 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BusinessLayer.Models.Appointments.AppointmentRatingViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p>Salon adı: @Model.SalonName</p>
+@if (Model.IsSalonRatedByTheUser == true)
+{
+    <h3>Daha önce puan verdiniz.</h3>
+
+    <div class="pt-3">
+        <a class="btn btn-info" asp-area="" asp-controller="Appointments" asp-action="Index">
+            Randevularıma dön.
+        </a>
+    </div>
+}
+
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="RatePastAppointment" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div hidden="" class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="SalonId" class="control-label"></label>
+                    <input asp-for="SalonId" class="form-control" />
+                    <span asp-validation-for="SalonId" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="SalonName" class="control-label"></label>
+                   
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="SalonCategoryName" class="control-label">: @Model.SalonName</label>
+                    <input asp-for="SalonCategoryName" class="form-control" />
+                    <span asp-validation-for="SalonCategoryName" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="SalonCityName" class="control-label"></label>
+                    <input asp-for="SalonCityName" class="form-control" />
+                    <span asp-validation-for="SalonCityName" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="SalonAddress" class="control-label"></label>
+                    <input asp-for="SalonAddress" class="form-control" />
+                    <span asp-validation-for="SalonAddress" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="SalonImageUrl" class="control-label"></label>
+                    <input asp-for="SalonImageUrl" class="form-control" />
+                    <span asp-validation-for="SalonImageUrl" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="IsSalonRatedByTheUser" class="control-label"></label>
+                    <input asp-for="IsSalonRatedByTheUser" class="form-control" />
+                    <span asp-validation-for="IsSalonRatedByTheUser" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RateValue" class="control-label"></label>
+                    <input asp-for="RateValue" class="form-control" />
+                    <span asp-validation-for="RateValue" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+}
+
+

@@ -1,0 +1,48 @@
+﻿@model BusinessLayer.Models.Services.ServicesListViewModel
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Services";
+}
+
+<p>
+    Bütün hizmetler : (@Model.Services.Count())
+</p>
+
+
+<a class="btn btn-success" asp-area="Administration" asp-controller="Services" asp-action="AddService">Yeni hizmet ekle</a>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>İsim</th>
+            <th>Kategori</th>
+            <th>Açıklama</th>
+            <th>Kuaförler</th>
+            <th>Randevular</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var service in Model.Services)
+        {
+            <tr>
+                <th>@service.Name</th>
+                <td>@service.CategoryName</td>
+                <td>@service.Description</td>
+                <td>@service.SalonsCount</td>
+                <td>@service.AppointmentsCount</td>
+                <td>
+                    
+                        <form method="post">
+                            <button type="submit" class="btn btn-danger"
+                            asp-area="Administration" asp-controller="Services" asp-action="DeleteService" asp-route-id="@service.Id">
+                                Sil.
+                            </button>
+                        </form>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
