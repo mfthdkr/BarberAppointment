@@ -1,0 +1,79 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BusinessLayer.Models.AppointmentRateViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p>Berber adı: @Model.BarberName</p>
+@if (Model.IsSalonRatedByTheUser == true)
+{
+    <h3>Daha önce puan verdiniz.</h3>
+
+    <div class="pt-3">
+        <a class="btn btn-info" asp-area="" asp-controller="Appointments" asp-action="Index">
+            Randevularıma dön.
+        </a>
+    </div>
+}
+
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="RateAppointment" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div hidden="" class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="BarberId" class="control-label"></label>
+                    <input asp-for="BarberId" class="form-control" />
+                    <span asp-validation-for="BarberId" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="BarberName" class="control-label"></label>
+
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="BarberCityName" class="control-label"></label>
+                    <input asp-for="BarberCityName" class="form-control" />
+                    <span asp-validation-for="BarberCityName" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="BarberAddress" class="control-label"></label>
+                    <input asp-for="BarberAddress" class="form-control" />
+                    <span asp-validation-for="BarberAddress" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="BarberImageUrl" class="control-label"></label>
+                    <input asp-for="BarberImageUrl" class="form-control" />
+                    <span asp-validation-for="BarberImageUrl" class="text-danger"></span>
+                </div>
+                <div hidden="" class="form-group">
+                    <label asp-for="IsSalonRatedByTheUser" class="control-label"></label>
+                    <input asp-for="IsSalonRatedByTheUser" class="form-control" />
+                    <span asp-validation-for="IsSalonRatedByTheUser" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RateValue" class="control-label"></label>
+                    <input asp-for="RateValue" class="form-control" />
+                    <span asp-validation-for="RateValue" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+}
+
+
+
+

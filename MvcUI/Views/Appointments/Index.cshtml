@@ -1,0 +1,84 @@
+﻿@model IEnumerable<BusinessLayer.Models.AppointmentViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>Yaklaşan randevularım : (@Model.Count())</p>
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.BarberName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BarberCityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BarberAddress)
+            </th>
+
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Confirmed)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.BarberName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BarberCityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BarberAddress)
+                </td>
+
+                
+                <td>
+                    @if (item.Confirmed == true)
+                    {
+                        <span>Onaylandı.</span>
+                    }
+                    else if (item.Confirmed == false)
+                    {
+                        <span>İptal edildi.</span>
+                    }
+                    else
+                    {
+                        <span>Onay Bekliyor.</span>
+                    }
+                </td>
+
+                <td>
+                    <a asp-area="" asp-controller="Appointments" asp-action="DeleteAppointment" asp-route-id="@item.Id">
+                        İptal et.
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<hr />
+@await Component.InvokeAsync("PastAppointments")

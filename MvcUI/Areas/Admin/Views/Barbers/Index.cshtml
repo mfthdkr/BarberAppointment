@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using BusinessLayer.Models
+@model IEnumerable<BarberViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<p>
+    Bütün berberler: (@Model.Count())
+</p>
+<span>
+    <a class="btn btn-info" asp-area="Admin" asp-controller="Barbers" asp-action="AddBarber">Yeni kuaför ekle.</a>
+</span>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>İsim</th>
+            <th>Görsel</th>
+            <th>Şehir</th>
+            <th>Adres</th>
+            <th>Puan</th>
+            <th>Randevular</th>
+            <th>Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var barber in Model)
+        {
+            <tr>
+                <th>@barber.Name</th>
+                <td>
+                    <img class="align-self-center" src="@barber.ImageUrl" style="width:180px;height:120px;">
+                </td>
+                <td>@barber.CityName</td>
+                <td>@barber.Address</td>
+                <td>@barber.Rating / 5</td>
+                <td>@barber.AppointmentsCount</td>
+                <td>
+                    <a class="btn btn-info" asp-area="Admin" asp-controller="Barbers" asp-action="Details" asp-route-id="@barber.Id">Kuaför Detay</a>
+
+                    <form method="post">
+                        <button type="submit" class="btn btn-danger"
+                            asp-area="Admin" asp-controller="Barbers" asp-action="DeleteBarber" asp-route-id="@barber.Id">
+                            Sil
+                        </button>
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<BusinessLayer.Models.AppointmentViewModel>
+@{
+    ViewData["Title"] = "Default";
+}
+<p>Bu berbere ait randevular:</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tarih</th>
+            <th>Müşteri</th>
+            <th>Durum</th>
+            <th>Onayla</th>
+            <th>İptal et.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var appointment in Model)
+        {
+            <tr>
+                <th>@appointment.DateTime</th>
+                <td>@appointment.UserEmail</td>
+                <td>
+                    @if (appointment.Confirmed == true)
+                    {
+                        <span>Onaylanmış</span>
+                    }
+                    else if (appointment.Confirmed == false)
+                    {
+                        <span>İptal edilmiş</span>
+                    }
+                    else
+                    {
+                        <span>Onay bekliyor.</span>
+                    }
+                </td>
+                @if (appointment.DateTime.Date > DateTime.UtcNow.Date)
+                {
+                    <td>
+                        <form method="post">
+                            <button type="submit" class="btn btn-success"
+                            asp-area="Admin" asp-controller="Barbers" asp-action="ConfirmAppointment"
+                            asp-route-id="@appointment.Id" asp-route-barberId="@appointment.BarberId">
+                                Onayla
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post">
+                            <button type="submit" class="btn btn-danger"
+                            asp-area="Admin" asp-controller="Barbers" asp-action="CancelAppointment"
+                            asp-route-id="@appointment.Id" asp-route-barberId="@appointment.BarberId">
+                                İptal et.
+                            </button>
+                        </form>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Eski randevu
+                    </td>
+                    <td>
+                        Eski randevu
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+

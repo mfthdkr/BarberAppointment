@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using BusinessLayer.Models
+@model IEnumerable<CityViewModel>
+@{
+    ViewData["Title"] = "Cities";
+}
+
+<h2>
+    Bütün şehirler (@Model.Count())
+    <span>
+        <a class="btn btn-info" asp-area="Admin" asp-controller="Cities" asp-action="AddCity">Yeni şehir ekle</a>
+    </span>
+</h2>
+
+<table class="table table-bordered table-striped">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Şehir</th>
+            <th scope="col">Berber sayısı</th>
+            <th scope="col">Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var city in Model)
+        {
+            <tr>
+                <th scope="row">@city.Name</th>
+                <td>@city.BarbersCount</td>
+                <td>
+                    @if (city.Id <= 2)
+                    {
+                        <div >
+                            örnek veri silinemez.
+                        </div>
+                    }
+                    else
+                    {
+                        <form method="post">
+                            <button type="submit" class="btn btn-danger btn-sm"
+                            asp-area="Admin" asp-controller="Cities" asp-action="DeleteCity" asp-route-id="@city.Id">
+                                Sil
+                            </button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

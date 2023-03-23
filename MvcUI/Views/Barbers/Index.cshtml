@@ -1,0 +1,93 @@
+﻿@using BusinessLayer.Models;
+@using CoreLayer.MvcUI.Pagination;
+@model PaginatedList<BarberViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                name
+            </th>
+            <th>
+                image url
+            </th>
+            <th>
+                şehir adı
+            </th>
+            <th>
+                adres
+            </th>
+            <th>
+                puan
+            </th>
+            <th>
+                oylama
+            </th>
+            <th>
+                randevu sayı
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <img class="align-self-center" src="@item.ImageUrl" style="width:180px;height:120px;">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RatersCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppointmentsCount)
+                </td>
+                <td>
+                    <a asp-area="" asp-controller="Appointments" asp-action="CreateAppointment" asp-route-barberId="@item.Id">
+                        Randevu al
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="row ml-5">
+    <div class="m-5">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           style="" class="btn btn-secondary  @prevDisabled">
+            &#x2190; Geri
+        </a>
+    </div>
+    <div class="m-5">
+        <a asp-action="Index"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           style="" class="btn btn-secondary  @nextDisabled">
+            İleri &#x2192;
+        </a>
+    </div>
+</div>

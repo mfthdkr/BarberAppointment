@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BusinessLayer.Models.BarberViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<p>Berbere ait bilgiler: @Model.Name</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Görsel</th>
+            <th>Salon Adı</th>
+            <th>Şehir</th>
+            <th>Adres</th>
+            <th>Puan</th>
+            <th>Oy Sayısı</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <img class="align-self-center" src="@Model.ImageUrl" style="width:180px;height:120px;">
+            </td>
+            <td>@Model.Name</td>
+            <td>@Model.CityName</td>
+            <td>@Model.Address</td>
+            <td>@Model.Rating</td>
+            <td>@Model.RatersCount</td>
+        </tr>
+    </tbody>
+</table>
+<hr />
+<hr />
+
+<div>
+    @await Component.InvokeAsync("AllAppointmentsByBarber", Model.Id)
+</div>
+
+
+
+
